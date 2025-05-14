@@ -1,0 +1,26 @@
+{
+  "canisters": {
+    "reNew_backend": {
+      "main": "src/reNew_backend/main.mo",
+      "type": "motoko"
+    },
+    "reNew_frontend": {
+      "dependencies": [
+        "reNew_backend"
+      ],
+      "source": [
+        "src/reNew_frontend/dist"
+      ],
+      "type": "assets",
+      "workspace": "reNew_frontend"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
