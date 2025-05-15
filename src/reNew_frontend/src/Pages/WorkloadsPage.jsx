@@ -144,12 +144,12 @@ function WorkloadsPage() {
                 View
               </NavLink>
               {isAdmin && (
-                // <button
-                //   onClick={() => alert(`Edit workload for ${workload.name}`)}
-                //   className="edit-button"
-                // >
-                //   Edit
-                // </button>
+                <button
+                  onClick={() => alert(`Edit workload for ${workload.name}`)}
+                  className="edit-button"
+                >
+                  Edit
+                </button>
               )}
             </div>
           </div>
