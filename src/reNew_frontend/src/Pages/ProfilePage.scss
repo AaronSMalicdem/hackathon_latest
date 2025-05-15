@@ -1,0 +1,153 @@
+$primary-color: #2b6cb0; // Blue for titles, buttons
+$secondary-color: #4a5568; // Gray for text
+$background-color: #f7fafc; // Light gray background
+$border-color: #e2e8f0; // Light border
+$success-color: #48bb78; // Green for edit button
+$card-background: #ffffff; // White for card
+$text-color: #1a202c; // Dark text
+$shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+$hover-color: #edf2f7; // Light hover background
+
+.profile-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: $background-color;
+  font-family: 'Arial', sans-serif;
+  color: $text-color;
+
+  h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    color: $primary-color;
+    text-align: center;
+  }
+}
+
+.profile-card {
+  background: $card-background;
+  border-radius: 8px;
+  box-shadow: $shadow;
+  padding: 2rem;
+  transition: box-shadow 0.2s;
+
+  &:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid $border-color;
+}
+
+.profile-name {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: $primary-color;
+  margin: 0;
+}
+
+.profile-department {
+  font-size: 0.9rem;
+  color: $secondary-color;
+  background: $hover-color;
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+}
+
+.profile-body {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.profile-section {
+  flex: 1;
+
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: $secondary-color;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    margin: 0.5rem 0;
+    font-size: 0.95rem;
+    color: $text-color;
+
+    strong {
+      color: $secondary-color;
+    }
+  }
+}
+
+.profile-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.edit-button {
+  background: $success-color;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:hover {
+    background: darken($success-color, 5%);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+@media (max-width: 768px) {
+  .profile-page {
+    padding: 1rem;
+  }
+
+  .profile-card {
+    padding: 1.5rem;
+  }
+
+  .profile-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .profile-body {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .profile-name {
+    font-size: 1.25rem;
+  }
+
+  .profile-section h3 {
+    font-size: 1.1rem;
+  }
+
+  .profile-section p {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .edit-button {
+    width: 100%;
+    text-align: center;
+  }
+}

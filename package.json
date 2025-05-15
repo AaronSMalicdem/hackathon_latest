@@ -14,5 +14,9 @@
   "type": "module",
   "workspaces": [
     "src/reNew_frontend"
-  ]
+  ],
+  "dependencies": {
+    "react-router-dom": "^7.6.0",
+    "sass": "^1.88.0"
+  }
 }

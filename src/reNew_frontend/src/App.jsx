@@ -1,30 +1,47 @@
-import { useState } from 'react';
-import { reNew_backend } from 'declarations/reNew_backend';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { LoginForm } from './Pages/LoginPage';
+import HomePage from './Pages/HomePage';
+import WorkloadsPage from './Pages/WorkloadsPage';
+import Layout from './components/Layout';
+import ProtectedRoute from './components/ProtectedRoute';
+import { RegisterForm } from './Pages/Registration';
+import ProfilePage from './Pages/ProfilePage';
 
 function App() {
-  const [greeting, setGreeting] = useState('');
-
-  function handleSubmit(event) {
-    event.preventDefault();
-    const name = event.target.elements.name.value;
-    reNew_backend.greet(name).then((greeting) => {
-      setGreeting(greeting);
-    });
-    return false;
-  }
-
   return (
-    <main>
-      <img src="/logo2.svg" alt="DFINITY logo" />
-      <br />
-      <br />
-      <form action="#" onSubmit={handleSubmit}>
-        <label htmlFor="name">Enter your name: &nbsp;</label>
-        <input id="name" alt="Name" type="text" />
-        <button type="submit">Click Me!</button>
-      </form>
-      <section id="greeting">{greeting}</section>
-    </main>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LoginForm />} />
+        <Route path="/login" element={<LoginForm />} />
+        <Route path="/register" element={<RegisterForm />} />
+        <Route element={<Layout />}>
+          <Route
+            path="/home"
+            element={
+              <ProtectedRoute>
+                <HomePage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/workloads"
+            element={
+              <ProtectedRoute>
+                <WorkloadsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <ProfilePage />
+              </ProtectedRoute>
+            }
+          />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
