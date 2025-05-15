@@ -70,18 +70,18 @@ function WorkloadsPage() {
   // Placeholder for backend fetch (to be implemented)
   useEffect(() => {
     // TODO: Fetch workloads from Motoko canister using @dfinity/agent
-    // Example:
-    // const fetchWorkloads = async () => {
-    //   const actor = await createActor(canisterId, idlFactory);
-    //   const data = await actor.getTeacherWorkloads();
-    //   setWorkloads(data);
-    // };
-    // fetchWorkloads();
   }, []);
 
   return (
     <div className="workloads-page">
       <h1>Teacher Workloads</h1>
+
+      {/* My Workloads Section */}
+      <div className="my-workloads-section">
+        <NavLink to="/personalworks" className="my-workloads-link">
+          My Workloads
+        </NavLink>
+      </div>
 
       {/* Filter */}
       <div className="filter-section">

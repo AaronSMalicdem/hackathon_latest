@@ -6,6 +6,7 @@ import Layout from './components/Layout';
 import ProtectedRoute from './components/ProtectedRoute';
 import { RegisterForm } from './Pages/Registration';
 import ProfilePage from './Pages/ProfilePage';
+import PersonalWork from './Pages/PersonalWork';
 
 function App() {
   return (
@@ -28,6 +29,13 @@ function App() {
             element={
               <ProtectedRoute>
                 <WorkloadsPage />
+              </ProtectedRoute>
+            }
+          />  <Route
+            path="/personalworks"
+            element={
+              <ProtectedRoute>
+                <PersonalWork />
               </ProtectedRoute>
             }
           />

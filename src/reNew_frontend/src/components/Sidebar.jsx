@@ -60,6 +60,16 @@ const Sidebar = () => {
                         <FaUser className="sidebar-icon" />
                         Profile
                     </NavLink>
+                        <NavLink
+                        to="/personalworks"
+                        className={({ isActive }) =>
+                            isActive ? 'sidebar-link sidebar-link-active' : 'sidebar-link'
+                        }
+                        onClick={() => setIsOpen(false)}
+                    >
+                        <FaUser className="sidebar-icon" />
+                        My Works
+                    </NavLink>
                     <button
                         className="sidebar-link sidebar-logout"
                         onClick={handleLogout}

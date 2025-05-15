@@ -1,0 +1,196 @@
+$primary-color: #2b6cb0; // Blue for titles, links
+$secondary-color: #4a5568; // Gray for text
+$background-color: #f7fafc; // Light gray background
+$border-color: #e2e8f0; // Light border
+$hover-color: #edf2f7; // Light hover background
+$text-color: #1a202c; // Dark text
+$success-color: #48bb78; // Green for buttons
+$card-background: #ffffff; // White for cards
+$shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+.personal-work-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: $background-color;
+  font-family: 'Arial', sans-serif;
+  color: $text-color;
+
+  h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: $primary-color;
+    text-align: center;
+  }
+}
+
+.nft-info {
+  font-size: 1rem;
+  color: $secondary-color;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.workload-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.workload-card {
+  background: $card-background;
+  border-radius: 8px;
+  box-shadow: $shadow;
+  padding: 1rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.card-header {
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid $border-color;
+  padding-bottom: 0.25rem;
+}
+
+.card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: $primary-color;
+  margin: 0;
+}
+
+.card-body {
+  margin-bottom: 0.5rem;
+
+  p {
+    margin: 0.25rem 0;
+    font-size: 0.9rem;
+    color: $text-color;
+
+    strong {
+      color: $secondary-color;
+    }
+  }
+}
+
+.card-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-end;
+}
+
+.complete-button {
+  background: $success-color;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:hover {
+    background: darken($success-color, 5%);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.nft-coin-container {
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+.nft-coin {
+  width: 40px;
+  height: 40px;
+  animation: pop-coin 0.8s ease-out;
+}
+
+.nft-message {
+  font-size: 0.85rem;
+  color: $success-color;
+  margin-top: 0.25rem;
+}
+
+.back-section {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.back-link {
+  color: $primary-color;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: background 0.2s;
+
+  &:hover {
+    background: $hover-color;
+    text-decoration: none;
+  }
+}
+
+@keyframes pop-coin {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 1;
+  }
+  75% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .personal-work-page {
+    padding: 1rem;
+  }
+
+  .workload-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  .workload-card {
+    padding: 0.75rem;
+  }
+
+  .card-title {
+    font-size: 1rem;
+  }
+
+  .card-body p {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .workload-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card-actions {
+    align-items: stretch;
+  }
+
+  .complete-button {
+    text-align: center;
+  }
+}
