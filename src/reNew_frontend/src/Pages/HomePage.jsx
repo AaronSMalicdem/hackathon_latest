@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Actor, HttpAgent } from '@dfinity/agent';
+import { idlFactory } from '../../../declarations/reNew_backend/reNew_backend.did.js';
 import './HomePage.scss';
 
-
 const HomePage = () => {
-  // State for student attendance records
-  const [studentAttendance, setStudentAttendance] = useState([
-    { name: 'John Doe', date: '05/10/2025', status: 'Present' },
-    { name: 'Jane Smith', date: '05/10/2025', status: 'Absent' },
-    { name: 'Alex Johnson', date: '05/11/2025', status: 'Present' },
-  ]);
+  // State for student attendance records (fetched from backend)
+  const [studentAttendance, setStudentAttendance] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   // State for form inputs
   const [formData, setFormData] = useState({
@@ -26,6 +25,40 @@ const HomePage = () => {
     { name: 'Prof. Michael Lee', date: '05/10/2025', status: 'Present' },
     { name: 'Ms. Sarah Davis', date: '05/11/2025', status: 'Absent' },
   ];
+
+  // Fetch all users from backend
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const agent = new HttpAgent({ host: process.env.DFX_NETWORK === 'ic' ? 'https://icp0.io' : 'http://localhost:4943' });
+        if (process.env.DFX_NETWORK !== 'ic') {
+          await agent.fetchRootKey();
+        }
+        const canisterId = process.env.RENEW_BACKEND_CANISTER_ID || 'uxrrr-q7777-77774-qaaaq-cai';
+        const actor = Actor.createActor(idlFactory, { agent, canisterId });
+
+        const users = await actor.getAllUsers();
+        // Map users to attendance format (mock status and date for now)
+        const attendanceRecords = users.map((user) => ({
+          name: user.name,
+          date: new Date().toLocaleDateString('en-US', {
+            month: '2-digit',
+            day: '2-digit',
+            year: 'numeric',
+          }),
+          status: 'Present', // Mock status
+        }));
+        setStudentAttendance(attendanceRecords);
+        setLoading(false);
+      } catch (err) {
+        console.error('Error fetching users:', err);
+        setError('Failed to load user data');
+        setLoading(false);
+      }
+    };
+
+    fetchUsers();
+  }, []);
 
   // Handle form input changes
   const handleInputChange = (e) => {
@@ -76,7 +109,7 @@ const HomePage = () => {
         <h3 className="attendance-title">Log Student Attendance</h3>
         <form className="attendance-form" onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="name">Name </label>
+            <label htmlFor="name">Name</label>
             <input
               type="text"
               id="name"
@@ -84,12 +117,12 @@ const HomePage = () => {
               value={formData.name}
               onChange={handleInputChange}
               className={errors.name ? 'input-error' : ''}
-              placeholder="Enter student name "
+              placeholder="Enter student name"
             />
             {errors.name && <span className="error-message">{errors.name}</span>}
           </div>
           <div className="form-group">
-            <label htmlFor="course">Course </label>
+            <label htmlFor="course">Course</label>
             <input
               type="text"
               id="course"
@@ -97,12 +130,12 @@ const HomePage = () => {
               value={formData.course}
               onChange={handleInputChange}
               className={errors.course ? 'input-error' : ''}
-              placeholder="Enter course name "
+              placeholder="Enter course name"
             />
             {errors.course && <span className="error-message">{errors.course}</span>}
           </div>
           <div className="form-group">
-            <label htmlFor="age">Age </label>
+            <label htmlFor="age">Age</label>
             <input
               type="number"
               id="age"
@@ -110,10 +143,9 @@ const HomePage = () => {
               value={formData.age}
               onChange={handleInputChange}
               className={errors.age ? 'input-error' : ''}
-              placeholder="Enter age "
+              placeholder="Enter age"
               min="1"
-           
-           />
+            />
             {errors.age && <span className="error-message">{errors.age}</span>}
           </div>
           <button type="submit" className="submit-button">
@@ -125,26 +157,34 @@ const HomePage = () => {
       {/* Student Attendance Table */}
       <section className="attendance-section">
         <h3 className="attendance-title">Student Attendance</h3>
-        <table className="attendance-table">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Date</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {studentAttendance.map((record, index) => (
-              <tr key={index}>
-                <td>{record.name}</td>
-                <td>{record.date}</td>
-                <td className={record.status === 'Present' ? 'status-present' : 'status-absent'}>
-                  {record.status}
-                </td>
+        {loading ? (
+          <p>Loading users...</p>
+        ) : error ? (
+          <p className="error-message">{error}</p>
+        ) : studentAttendance.length === 0 ? (
+          <p>No users registered</p>
+        ) : (
+          <table className="attendance-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Status</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {studentAttendance.map((record, index) => (
+                <tr key={index}>
+                  <td>{record.name}</td>
+                  <td>{record.date}</td>
+                  <td className={record.status === 'Present' ? 'status-present' : 'status-absent'}>
+                    {record.status}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </section>
 
       {/* Faculty Attendance Table */}

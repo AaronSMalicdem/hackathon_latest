@@ -13,6 +13,7 @@ actor {
   // User type (re-exported for Candid)
   public type User = Auth.User;
 
+
   // Register a new user
   public shared func register(username: Text, name: Text, course: Text, age: Nat, password: Text): async Result.Result<Text, Text> {
     let result = Auth.register(username, name, course, age, password, users);
@@ -31,4 +32,11 @@ actor {
   public shared func getProfile(username: Text): async Result.Result<User, Text> {
     Auth.getProfile(username, users)
   };
+
+   // Get all users
+  public shared func getAllUsers(): async [User] {
+    Auth.getAllUsers(users)
+  };
 };
+
+

@@ -3,6 +3,8 @@ import Text "mo:base/Text";
 import Nat "mo:base/Nat";
 import Nat32 "mo:base/Nat32";
 import Result "mo:base/Result";
+import Iter "mo:base/Iter";
+
 
 module {
   // User type
@@ -86,5 +88,12 @@ module {
       case (?user) { #ok(user) };
       case null { #err("User not found") };
     };
+  };
+
+   // Get all users
+  public func getAllUsers(
+    users: HashMap.HashMap<Text, User>
+  ): [User] {
+    Iter.toArray(Iter.map<(Text, User), User>(users.entries(), func ((_, user)) { user }))
   };
 };
