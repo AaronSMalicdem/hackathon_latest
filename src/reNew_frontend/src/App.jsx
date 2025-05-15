@@ -7,6 +7,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import { RegisterForm } from './Pages/Registration';
 import ProfilePage from './Pages/ProfilePage';
 import PersonalWork from './Pages/PersonalWork';
+import StudentTask from './Pages/StudentTask';
 
 function App() {
   return (
@@ -47,7 +48,16 @@ function App() {
               </ProtectedRoute>
             }
           />
+            <Route
+            path="/studenttask"
+            element={
+              <ProtectedRoute>
+                <StudentTask />
+              </ProtectedRoute>
+            }
+          />
         </Route>
+
       </Routes>
     </BrowserRouter>
   );

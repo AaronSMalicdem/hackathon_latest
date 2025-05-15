@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import './PersonalWork.scss';
+import NftImage from '../images/nft.png';
 
-// Mock workloads for the logged-in teacher
 const generateMockWorkloads = (teacherName) => [
   {
     id: '1',
@@ -97,33 +97,37 @@ const generateMockWorkloads = (teacherName) => [
 ];
 
 function PersonalWork() {
-  // Fetch teacher's name from localStorage
   const [teacherName, setTeacherName] = useState('Teacher');
+  const [workloads, setWorkloads] = useState(generateMockWorkloads(teacherName));
+  const [nftPopups, setNftPopups] = useState({});
+
   useEffect(() => {
     const username = localStorage.getItem('username') || 'Teacher';
     setTeacherName(username);
   }, []);
 
-  // Initialize workloads
-  const [workloads, setWorkloads] = useState(generateMockWorkloads(teacherName));
-  const [nftMessages, setNftMessages] = useState({});
-
-  // Update workloads when teacherName changes
   useEffect(() => {
     setWorkloads(generateMockWorkloads(teacherName));
   }, [teacherName]);
 
-  // Handle workload completion
   const handleComplete = (id) => {
     setWorkloads((prev) =>
       prev.map((workload) =>
         workload.id === id ? { ...workload, isComplete: true } : workload
       )
     );
-    setNftMessages((prev) => ({
+    setNftPopups((prev) => ({
       ...prev,
       [id]: `NFT Earned for completing ${id}!`,
     }));
+  };
+
+  const closeNftPopup = (id) => {
+    setNftPopups((prev) => {
+      const newPopups = { ...prev };
+      delete newPopups[id];
+      return newPopups;
+    });
   };
 
   return (
@@ -164,17 +168,21 @@ function PersonalWork() {
                   Mark as Complete
                 </button>
               )}
-              {nftMessages[workload.id] && (
-                <div className="nft-coin-container">
-                  <img
-                    src="https://img.icons8.com/emoji/48/coin-emoji.png"
-                    alt="NFT Coin"
-                    className="nft-coin"
-                  />
-                  <p className="nft-message">{nftMessages[workload.id]}</p>
-                </div>
-              )}
             </div>
+            {nftPopups[workload.id] && (
+              <div className="nft-popup-overlay">
+                <div className="nft-popup">
+                  <img src={NftImage} alt="NFT Coin" className="nft-coin" />
+                  <p className="nft-message">{nftPopups[workload.id]}</p>
+                  <button
+                    className="close-button"
+                    onClick={() => closeNftPopup(workload.id)}
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         ))}
       </div>

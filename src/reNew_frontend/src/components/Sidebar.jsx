@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { FaHome, FaBriefcase, FaUser, FaSignOutAlt } from 'react-icons/fa';
+import { FaHome, FaBriefcase, FaUser, FaSignOutAlt, FaBook, FaPen } from 'react-icons/fa';
 import '../index.scss';
 
 const Sidebar = () => {
@@ -51,6 +51,27 @@ const Sidebar = () => {
                         Teacher Workloads
                     </NavLink>
                     <NavLink
+                        to="/studenttask"
+                        className={({ isActive }) =>
+                            isActive ? 'sidebar-link sidebar-link-active' : 'sidebar-link'
+                        }
+                        onClick={() => setIsOpen(false)}
+                    >
+                        <FaBook className="sidebar-icon" />
+                        Student Task
+                    </NavLink>
+                    
+                        <NavLink
+                        to="/personalworks"
+                        className={({ isActive }) =>
+                            isActive ? 'sidebar-link sidebar-link-active' : 'sidebar-link'
+                        }
+                        onClick={() => setIsOpen(false)}
+                    >
+                        <FaPen className="sidebar-icon" />
+                        My Works
+                    </NavLink>
+                    <NavLink
                         to="/profile"
                         className={({ isActive }) =>
                             isActive ? 'sidebar-link sidebar-link-active' : 'sidebar-link'
@@ -59,16 +80,6 @@ const Sidebar = () => {
                     >
                         <FaUser className="sidebar-icon" />
                         Profile
-                    </NavLink>
-                        <NavLink
-                        to="/personalworks"
-                        className={({ isActive }) =>
-                            isActive ? 'sidebar-link sidebar-link-active' : 'sidebar-link'
-                        }
-                        onClick={() => setIsOpen(false)}
-                    >
-                        <FaUser className="sidebar-icon" />
-                        My Works
                     </NavLink>
                     <button
                         className="sidebar-link sidebar-logout"

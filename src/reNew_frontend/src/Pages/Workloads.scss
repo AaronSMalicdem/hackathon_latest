@@ -95,11 +95,26 @@ $shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
 .card-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   margin-bottom: 1rem;
   border-bottom: 1px solid $border-color;
   padding-bottom: 0.5rem;
+  gap: 1rem;
+}
+
+.profile-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid $border-color;
+}
+
+.header-content {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .card-title {
@@ -123,16 +138,14 @@ $shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .card-body {
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 
-  p {
-    margin: 0.5rem 0;
-    font-size: 0.95rem;
-    color: $text-color;
+  margin: 0.5rem 0;
+  font-size: 0.95rem;
+  color: $text-color;
 
-    strong {
-      color: $secondary-color;
-    }
+  strong {
+    color: $secondary-color;
   }
 
   .weekly-hours {
@@ -213,6 +226,17 @@ $shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
 @media (max-width: 480px) {
   .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .profile-image {
+    width: 32px;
+    height: 32px;
+  }
+
+  .header-content {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.5rem;

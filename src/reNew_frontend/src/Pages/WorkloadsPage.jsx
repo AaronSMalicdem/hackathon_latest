@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
+import profileImage from '../images/profile.png'; // Relative path to the image
 import './Workloads.scss';
 
 // Mock data (replace with backend fetch)
@@ -104,15 +105,22 @@ function WorkloadsPage() {
         {filteredWorkloads.map((workload) => (
           <div key={workload.teacherId} className="workload-card">
             <div className="card-header">
-              <h3
-                className="card-title"
-                onClick={() => handleSort('name')}
-                data-sort="name"
-              >
-                {workload.name}{' '}
-                {sortField === 'name' && (sortOrder === 'asc' ? '↑' : '↓')}
-              </h3>
-              <span className="department">{workload.department}</span>
+              <img
+                src={profileImage}
+                alt={`${workload.name}'s profile`}
+                className="profile-image"
+              />
+              <div className="header-content">
+                <h3
+                  className="card-title"
+                  onClick={() => handleSort('name')}
+                  data-sort="name"
+                >
+                  {workload.name}{' '}
+                  {sortField === 'name' && (sortOrder === 'asc' ? '↑' : '↓')}
+                </h3>
+                <span className="department">{workload.department}</span>
+              </div>
             </div>
             <div className="card-body">
               <p>

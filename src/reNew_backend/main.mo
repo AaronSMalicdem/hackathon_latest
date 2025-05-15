@@ -35,7 +35,7 @@ actor {
 
    // Get all users
   public shared func getAllUsers(): async [User] {
-    Auth.getAllUsers(users)
+     Auth.getAllUsers(users)
   };
 };
 

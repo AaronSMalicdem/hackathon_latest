@@ -1,0 +1,312 @@
+$primary-color: #2b6cb0;
+$secondary-color: #4a5568;
+$background-color: #f7fafc;
+$border-color: #e2e8f0;
+$success-color: #22c55e;
+$card-background: #ffffff;
+$shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+$sidebar-width: 250px;
+$assignment-color: #e9d8fd; // Soft purple
+$activity-color: #fefcbf; // Light yellow
+$exam-color: #fed7d7; // Soft red
+$announcement-color: #c6f6d5; // Light green
+
+.student-task-page {
+  display: flex;
+  min-height: 100vh;
+}
+
+.page-container {
+  margin-left: $sidebar-width;
+  padding: 2rem;
+  background: $background-color;
+  width: calc(100% - #{$sidebar-width});
+  min-height: 100vh;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+
+  @media (max-value: 768px) {
+    margin-left: 0;
+    width: 100%;
+    padding: 1rem;
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.page-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: $primary-color;
+}
+
+.add-task-btn {
+  background: $primary-color;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border: none;
+  transition: background 0.2s;
+  z-index: 10;
+
+  &:hover {
+    background: darken($primary-color, 10%);
+  }
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  background: $card-background;
+  border-radius: 4px;
+  box-shadow: $shadow;
+  z-index: 20;
+  min-width: 180px;
+  border: 1px solid $border-color;
+
+  button {
+    display: block;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    text-align: left;
+    background: none;
+    border: none;
+    color: $secondary-color;
+    font-size: 0.9rem;
+    cursor: pointer;
+
+    &:hover {
+      background: $background-color;
+    }
+  }
+}
+
+.tasks-section {
+  margin-bottom: 2.5rem;
+}
+
+.tasks-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: $primary-color;
+  margin-bottom: 1rem;
+}
+
+.tasks-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  background: $card-background;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: $shadow;
+}
+
+.task-card {
+  flex: 1;
+  min-width: 200px;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: $shadow;
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
+.task-card--assignment {
+  background: $assignment-color;
+}
+
+.task-card--activity {
+  background: $activity-color;
+}
+
+.task-card--exam {
+  background: $exam-color;
+}
+
+.task-card--announcement {
+  background: $announcement-color;
+}
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.task-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: $primary-color;
+}
+
+.edit-btn {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  color: $secondary-color;
+  padding: 0.25rem;
+  border-radius: 4px;
+  transition: background 0.2s;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.05);
+  }
+}
+
+.task-detail {
+  font-size: 0.9rem;
+  color: $secondary-color;
+  margin-bottom: 0.5rem;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.modal-content {
+  background: $card-background;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: $shadow;
+  position: relative;
+
+  h3 {
+    font-size: 1.5rem;
+    color: $primary-color;
+    margin-bottom: 1.5rem;
+  }
+}
+
+.form-group {
+  margin-bottom: 1rem;
+
+  label {
+    display: block;
+    font-size: 0.9rem;
+    color: $secondary-color;
+    margin-bottom: 0.25rem;
+  }
+
+  input,
+  textarea,
+  select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid $border-color;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    color: $secondary-color;
+  }
+
+  textarea {
+    min-height: 100px;
+    resize: vertical;
+  }
+}
+
+.modal-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 1.5rem;
+
+  button {
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    border: none;
+
+    &:first-child {
+      background: $primary-color;
+      color: white;
+
+      &:hover {
+        background: darken($primary-color, 10%);
+      }
+    }
+
+    &:last-child {
+      background: $border-color;
+      color: $secondary-color;
+
+      &:hover {
+        background: darken($border-color, 10%);
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 1.5rem;
+  }
+
+  .tasks-container {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .task-card {
+    min-width: 100%;
+  }
+
+  .modal-content {
+    width: 90%;
+    padding: 1.5rem;
+  }
+
+  .dropdown-menu {
+    right: 0;
+    min-width: 150px;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-content {
+    padding: 1rem;
+  }
+
+  .form-group {
+    input,
+    textarea,
+    select {
+      font-size: 0.8rem;
+    }
+  }
+
+  .modal-actions button {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
+}
